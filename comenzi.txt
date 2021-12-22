@@ -1,0 +1,18 @@
+1. FRONT END (react)
+npx create-react-app grade-frontend
+npm start
+
+2. BACK END (express = RESTful)
+    a. EXPRESS:
+        npm init
+        npm install express --save
+
+        --to start the app:
+        node app.js
+
+
+3. CONECTARE FRONT END - BACK END:
+    --in package.json al frontend => "proxy": "http://localhost:3000/",
+--Postman:
+--pentru get:
+http://localhost:3000/
