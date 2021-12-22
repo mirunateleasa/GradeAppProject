@@ -1,15 +1,14 @@
 import React, { Component, useState, useEffect } from "react";
-import "./AddProject.css";
+import "./Login.css";
 import axios from 'axios';
 
-class AddProject extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: '',
-            subject: '',
-            noPartials: 0
+            username: '',
+            password: ''
         };
     }
 
@@ -22,10 +21,10 @@ class AddProject extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { name, subject, noPartials } = this.state;
+        const { username, password } = this.state;
 
         const project = {
-            name,
+            username,
             subject,
             noPartials,
         };
@@ -84,4 +83,4 @@ class AddProject extends Component {
     }
 }
 
-export default AddProject;
+export default LoginForm;

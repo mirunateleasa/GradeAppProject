@@ -18,7 +18,6 @@ npm install nodemon
 
 
 3. CONECTARE FRONT END - BACK END:
-    --in package.json al frontend => "proxy": "http://localhost:3000/",
---Postman:
---pentru get:
-http://localhost:3000/
+    -- start port on 8080
+    -- start app on 3001
+    

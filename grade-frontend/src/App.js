@@ -1,14 +1,11 @@
 import './App.css';
 import React, {useState} from 'react';
-import Project from './components/DisplayProject';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import HomeComp from "./components/HomeComp";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/Login/LoginForm";
 import AddProject from "./components/AddProject/AddProject";
-import DisplayProject from './components/DisplayProject';
 
 function App() {
-
   //#region LOGIN PART (inca nu merge cu orice cont?)
   const adminUser = {
     email: "admin@admin.com",
@@ -50,7 +47,6 @@ function App() {
       <Route path = "/" element = {<HomeComp />}/>
       <Route path = "/login" element = {<LoginForm Login = {Login} error = {error}></LoginForm>}/>
       <Route path = '/newProject' element = {<AddProject></AddProject>}></Route>
-      <Route path = '/displayProjects' element = {<DisplayProject></DisplayProject>}></Route>
     </Routes>
     </BrowserRouter>
   );
