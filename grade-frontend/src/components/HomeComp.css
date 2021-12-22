@@ -1,0 +1,13 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.image
+{
+    width: 100vw;
+    height: 90vh;
+    opacity: 0.9;
+    filter: brightness(0.4);
+}

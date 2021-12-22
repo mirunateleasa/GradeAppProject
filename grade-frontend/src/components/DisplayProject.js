@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-const express = require("../../../grade-backend/node_modules/express");
 
 class DisplayProject extends Component {
 

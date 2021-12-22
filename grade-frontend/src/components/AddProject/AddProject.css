@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+  background-color: khaki;
+  align-items: center;
+}
+
+.newProjectForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: saddlebrown;
+  border-radius: 10px;
+  margin: 10%;
+}
+
+form .formInner {
+  position: relative;
+  background-color: saddlebrown;
+  border-radius: 10px;
+  display: block;
+  padding: 20px;
+  z-index: 2;
+}
+
+input {
+  display: block;
+  padding: 2px;
+  border: 1px solid khaki;
+  border-radius: 10px;
+  background-color: lemonchiffon;
+  height: 25px;
+  width: 80%;
+}
+
+input:hover, input:focus
+{
+    background-color: saddlebrown;
+    color: khaki;
+    border:1px solid khaki;
+}
+
+#btnAdd
+{
+    background-color:khaki;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid saddlebrown;
+}
+
+#btnAdd:hover, #btnAdd:focus
+{
+    background-color: saddlebrown;
+    color: khaki;
+    border:1px solid khaki;
+}
+
+h3 {
+  background-color: saddlebrown;
+  color: khaki;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.formGroups {
+  background-color: saddlebrown;
+  display: block;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.formGroups label {
+  display: block;
+  color: khaki;
+  background-color: saddlebrown;
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  transition: 0.5s;
+  font-family: "Sora", sans-serif;
+}
