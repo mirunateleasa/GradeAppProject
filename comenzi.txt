@@ -1,6 +1,12 @@
 1. FRONT END (react)
 npx create-react-app grade-frontend
 npm start
+npm install redux react-redux
+npm install react-router-dom 
+npm install react-router
+npm install styled-components
+npm install react-icons
+npm install nodemon
 
 2. BACK END (express = RESTful)
     a. EXPRESS:

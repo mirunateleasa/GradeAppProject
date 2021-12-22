@@ -22,6 +22,9 @@ const NavBar = () => {
                     <NavLink to="/incaOPagina" activeStyle>
                         Inca o pagina
                     </NavLink>
+                    <NavLink to = '/displayProjects' activeStyle>
+                        All projects
+                    </NavLink>
                     {/* Whatever else we want to do*/}
                 </NavMenu>
                 <NavBtn>
