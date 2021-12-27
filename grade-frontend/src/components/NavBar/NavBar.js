@@ -16,8 +16,8 @@ const NavBar = () => {
                     <NavLink to="/newProject" activeStyle>
                         New Project
                     </NavLink>
-                    <NavLink to="/altaPagina" activeStyle>
-                        Alta Pagina
+                    <NavLink to="/displayProjects" activeStyle>
+                        All projects
                     </NavLink>
                     <NavLink to="/incaOPagina" activeStyle>
                         Inca o pagina
@@ -28,8 +28,13 @@ const NavBar = () => {
                     {/* Whatever else we want to do*/}
                 </NavMenu>
                 <NavBtn>
+                    <NavBtnLink to= "/signup">
+                        Sign Up
+                    </NavBtnLink>
+                </NavBtn>
+                <NavBtn>
                     <NavBtnLink to= "/login">
-                        Sign In
+                        Log In
                     </NavBtnLink>
                 </NavBtn>
             </NavBarElem>

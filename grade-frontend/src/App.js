@@ -2,8 +2,10 @@ import './App.css';
 import React, {useState} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import HomeComp from "./components/HomeComp";
-import LoginForm from "./components/Login/LoginForm";
+import SignUpForm from "./components/Login/SignUpForm";
 import AddProject from "./components/AddProject/AddProject";
+import LoginForm from './components/Login/LogInForm';
+import DisplayProjects from './components/DisplayProject/DisplayProjects'
 
 function App() {
   //#region LOGIN PART (inca nu merge cu orice cont?)
@@ -46,7 +48,9 @@ function App() {
     <Routes>
       <Route path = "/" element = {<HomeComp />}/>
       <Route path = "/login" element = {<LoginForm Login = {Login} error = {error}></LoginForm>}/>
+      <Route path = "/signup" element = {<SignUpForm></SignUpForm>}/>
       <Route path = '/newProject' element = {<AddProject></AddProject>}></Route>
+      <Route path = '/displayProjects' element = {<DisplayProjects></DisplayProjects>}></Route>
     </Routes>
     </BrowserRouter>
   );

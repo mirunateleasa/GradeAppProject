@@ -1,86 +1,60 @@
 import React, { Component, useState, useEffect } from "react";
-import "./Login.css";
+import "./SignUpForm.css";
 import axios from 'axios';
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-
+    
         this.state = {
-            username: '',
-            password: ''
+          username: '',
+          password: ''
         };
-    }
-
-    handleInputChange = e => {
+      }
+    
+      handleInputChange = e => {
         this.setState({
-            [e.target.name]: e.target.value,
+          [e.target.name]: e.target.value,
         });
-    };
-
+      };
+    
     handleSubmit = e => {
         e.preventDefault();
-
-        const { username, password } = this.state;
-
+    
+        const { username, password} = this.state;
+    
         const project = {
             username,
-            subject,
-            noPartials,
+            password
         };
-
+    
         axios
-            .post('http://localhost:8080/newProject', project)
-            .then(() => console.log('Project Posted'))
-            .catch(err => {
-                console.error(err);
-            });
-    };
-    render() {
-        return ( <
-            div >
-            <
-            form className = "newProjectForm" >
-            <
-            div className = "formInner" >
-            <
-            h3 > Add your project here! < /h3> <
-            div className = "formGroups" >
-            <
-            label htmlFor = "name" > Your team name: < /label> <
-            input type = "text"
-            name = "name"
-            id = "name"
-            onChange = { this.handleInputChange } > < /input>
+          .post('http://localhost:8080/newProject', project)
+          .then(() => console.log('Project Posted'))
+          .catch(err => {
+            console.error(err);
+          });
+      };
+  render() {
+    return (
+      <div>
+        <form className="newAccount">
+          <div className="signInFormInner">
+            <h3 className="signInTitle"> Let's log you in! </h3>
+            <div className="signInFormGroups">
+              <label className = "signInLabel" htmlFor="username"> Your username: </label>
+              <input className="signInInput" type="text" name="username" id="username" onChange={this.handleInputChange}></input>
 
-            <
-            label htmlFor = "subject" > Your project subject: < /label> <
-            input type = "text"
-            name = "subject"
-            id = "subject"
-            onChange = { this.handleInputChange } > < /input>
+              <label className = "signInLabel" htmlFor="password"> Your new password: </label>
+              <input className="signInInput" type="password" name="password" id="password" onChange={this.handleInputChange}></input>
 
-            <
-            label htmlFor = "partials" > { " " }
-            How many partials do you want to deliver ? { " " } <
-                /label> <
-                input type = "number"
-            name = "partials"
-            id = "partials"
-            onChange = { this.handleInputChange } > < /input>
-
-            <
-            input type = "button"
-            value = "Add Project"
-            id = "btnAdd"
-            onClick = { this.handleSubmit }
-            /> <
-            /div> <
-            /div> <
-            /form> <
-            /div>
-        );
-    }
+              <input className="signInInput" type="button" value="LogIn!" id="btnSignUp" onClick={this.handleSubmit}/>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default LoginForm;

@@ -12,9 +12,14 @@ npm install nodemon
     a. EXPRESS:
         npm init
         npm install express --save
+        npm install --save cors
 
         --to start the app:
-        node app.js
+        node server.js
+    b. SEQUELIZE:
+        npm install --save sequelize
+        sqlite> ./sqlite3.exe
+        .open projects.db
 
 
 3. CONECTARE FRONT END - BACK END:

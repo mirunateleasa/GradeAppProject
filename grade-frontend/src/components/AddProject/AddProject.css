@@ -26,7 +26,7 @@ form .formInner {
   z-index: 2;
 }
 
-input {
+.projNameIn {
   display: block;
   padding: 2px;
   border: 1px solid khaki;
