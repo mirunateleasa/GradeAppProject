@@ -8,27 +8,29 @@ class AddProject extends Component {
     
         this.state = {
           name: '',
-          subject: '',
-          noPartials: ''
+          noPartials: '',
+          subject: ''
         };
       }
     
       handleInputChange = e => {
         this.setState({
-          [e.target.name]: e.target.value,
+          [e.target.name]: e.target.value
         });
+        console.log(this.state);
       };
     
     handleSubmit = e => {
         e.preventDefault();
     
-        const {name, subject, noPartials } = this.state;
+        const {name, noPartials, subject} = this.state;
     
         const project = {
             name,
-            subject,
-            noPartials
+            noPartials,
+            subject
         };
+        console.log(project)
     
         axios
           .post('http://localhost:8080/newProject', project)
@@ -39,7 +41,7 @@ class AddProject extends Component {
       };
   render() {
     return (
-      <div>
+      <div id = "classContainer">
         <form className="newProjectForm">
           <div className="formInner">
             <h3> Add your project here! </h3>
@@ -50,11 +52,8 @@ class AddProject extends Component {
               <label htmlFor="subject"> Your project subject: </label>
               <input className="projNameIn" type="text" name="subject" id="subject" onChange={this.handleInputChange}></input>
 
-              <label htmlFor="partials">
-                {" "}
-                How many partials do you want to deliver?{" "}
-              </label>
-              <input className="projNameIn" type="text" name="partials" id="partials" onChange={this.handleInputChange}></input>
+              <label htmlFor="noPartials"> How many partials do you want to deliver: </label>
+              <input className="projNameIn" type="text" name="noPartials" id="noPartials" onChange={this.handleInputChange}></input>
 
               <input type="button" value="Add Project" id="btnAdd" onClick={this.handleSubmit}/>
             </div>

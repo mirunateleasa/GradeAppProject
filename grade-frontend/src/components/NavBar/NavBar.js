@@ -6,13 +6,10 @@ const NavBar = () => {
     return (
         <div>
             <NavBarElem>
-                <NavLink to ="/" >   {/*this comes from react router link*/}
-                    <h1>NumeleAplicatiei?</h1>
-                </NavLink>
-                <Bars>
-
-                </Bars>
                 <NavMenu>
+                    <NavLink to = "/" activeStyle>
+                        Home
+                    </NavLink>
                     <NavLink to="/newProject" activeStyle>
                         New Project
                     </NavLink>
@@ -22,21 +19,7 @@ const NavBar = () => {
                     <NavLink to="/incaOPagina" activeStyle>
                         Inca o pagina
                     </NavLink>
-                    <NavLink to = '/displayProjects' activeStyle>
-                        All projects
-                    </NavLink>
-                    {/* Whatever else we want to do*/}
                 </NavMenu>
-                <NavBtn>
-                    <NavBtnLink to= "/signup">
-                        Sign Up
-                    </NavBtnLink>
-                </NavBtn>
-                <NavBtn>
-                    <NavBtnLink to= "/login">
-                        Log In
-                    </NavBtnLink>
-                </NavBtn>
             </NavBarElem>
         </div>
     )

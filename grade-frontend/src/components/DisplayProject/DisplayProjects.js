@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import './DisplayProjects.css'
+import img1 from '../../resources/work2.jpg'
+import NavBar from '../NavBar/NavBar';
+import { NavBtn, NavBtnLink } from '../NavBar/NavBarElem';
 
 function DisplayProjects() {
   const [projects, setProjects] = useState(null);
@@ -7,7 +10,6 @@ function DisplayProjects() {
   useEffect(() => {
     getData();
 
-    // we will use async/await to fetch this data
     async function getData() {
       const response = await fetch("http://localhost:8080/projects");
       const data = await response.json();
@@ -16,20 +18,28 @@ function DisplayProjects() {
   }, []);
 
   return (
-    <div className='body'>
+    <div className='mainContainer'>
+      <NavBar></NavBar>
       <h1>Projects in execution</h1>
-  
-      {/* display books from the API */}
       {projects && (
-        <div className="projects">
-  
-          {/* loop over the books */}
+        <div id="projects">
           {projects.map((project, index) => (
-            <div class="card">
-            <div class="container">
-              <h4><b>{project.name}</b></h4> 
-              <p>{project.subject}</p>
-              <input className="gradeBtn" type="button" value="Grade!"/>
+            <div id="card">
+            <div id="container">
+              <center><img id='cardImage' src = {img1}></img></center><br></br>
+              <label><b>Team name: </b></label>
+              <p className='projDetail'><center>{project.name}</center></p> 
+
+              <label><b>Subject chosen:</b></label>
+              <p className = 'projDetail'><center>{project.subject}</center></p>
+
+              <NavBtn>
+                <center>
+                <NavBtnLink id="gradeBtn" to= "/gradeProject">
+                    Grade!
+                </NavBtnLink>
+                </center>
+            </NavBtn>
             </div>
           </div>
           ))}

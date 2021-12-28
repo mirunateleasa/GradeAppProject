@@ -5,49 +5,37 @@ import {FaBars} from 'react-icons/fa'
 
 //use the backtick (``) for styling like css for each component (it comes from styled-components)
  export const NavBarElem = styled.nav ` 
-    background: #E9BB75;
-    height: 80px;
+    background: #588556;
+	height: 35px;
+	padding-left: 18px;
+	border-radius: 10px;
+	border: 2px groove #6D6D6D;
     display: flex;
     justify-content: space-between;
-    paddin: 0.5%;
+    padding: 0.5%;
     z-index: 10;
 `
 
-//the &active is the active state of the component (it doesn't have to be define separated as in css)
 export const NavLink = styled(theLink) `
-    color: #634619;
+    color: #D4FFD1;
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 3vw;
+    padding: 7vw;
     cursor: pointer;
-
     &.active {
-        color: #C39C5F;
+        color: #45FF70;
     }
-`
-
-export const Bars = styled (FaBars) `
-    display: none;
-    color: #634619;
-
-    @media screen and (max-width: 768px)
+    &:hover
     {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(-100%, 75%);
-        font-size: 1.8rem;
-        cursor: pointer;
+        text-decoration: underline;
+        color: #45FF70;
     }
 `
-
 export const NavMenu = styled.div `
     display: flex;
     align-items: center;
-    margin-right: -24px;
-
+    height: 35px;
     @media screen and (max-width: 768px)
     {
         display:none;
@@ -67,9 +55,9 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(theLink)`
     border-radius: 4px;
-    background: #634619;
+    background: #034D01;
     padding: 10px 22px;
-    color #fff;
+    color #D4FFD1;
     border: none;
     outline: none;
     cursor: pointer;

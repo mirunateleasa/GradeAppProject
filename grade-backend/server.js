@@ -54,7 +54,6 @@ app.post("/newProject", async (req, res, next) => {
       console.log (req.body)
       await Project.create(req.body);
       res.status(201).json({ message: "Project Created!" });
-      //nu merge decat pentru un singur proiect (nu se incrementeaza id-ul)
     } catch (err) {
       next(err);
     }
