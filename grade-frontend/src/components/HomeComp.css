@@ -2,9 +2,10 @@ div .homeContainer{
     margin: 0px;
     padding: 0px;
     overflow: hidden;
+    align-items: center;
 }
 
-.image
+.background
 {
     position: fixed;
     margin-top: 0px;
@@ -15,20 +16,24 @@ div .homeContainer{
     filter: brightness(0.4);
 }
 
-#buttonSign
+.p-button
 {
-    position: fixed;
-    margin-right: 0px;
-    margin-bottom: 0px;
-    margin-top: 80vh;
-    margin-left: 90vw;
+    display:flexbox;
+    justify-content: center;
+    margin: 20px;
+    opacity: 1;
     z-index: 10;
+    background-color: rgb(135, 199, 135);
 }
 
-#buttonLog
+.appTitle
 {
-    position: fixed;
-    margin-top: 80vh;
-    margin-left: 80vw;
     z-index: 10;
+    opacity: 1;
+    font-size: 50px;
+    background: none;
+    position: relative;
+    margin-top: 65vh;
+    justify-content: center;
+    color: rgb(135, 199, 135);
 }

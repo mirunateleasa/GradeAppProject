@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
+.p-menuitem-text
+{
+    color: rgb(95, 177, 78);
+    font-family: "Sora", sans-serif;
+}
+
+.p-menuitem-icon
+{
+    color: rgb(95, 177, 78);
+}
+
+.container
+{
+    align-items: center;
+    justify-content: center;
+}
+
+h4
+{
+    position: relative;
+    font-size: 400%;
+    align-content: center;
+    vertical-align: middle;
+}

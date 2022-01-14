@@ -1,13 +1,15 @@
 import React, { Component, useState, useEffect } from "react";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import "./SignUpForm.css";
 import axios from 'axios';
 import DisplayProjects from "../DisplayProject/DisplayProjects";
+import { NavLink } from "react-router-dom";
 const url = require('url');
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-    
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
           username: '',
           password: ''
@@ -33,12 +35,13 @@ class LoginForm extends Component {
         var response;
         axios
           .get(`http://localhost:8080/accounts/${username}/${password}`)
-          .then(function(data) {
+          .then((data) =>{
             response = data.status
             if (response === 200)
             {
-              console.log("YOU ARE HERE");
-              //go to display projects for person page
+              let path = `/projects/${username}`;
+              console.log(path);
+              window.location.href = "http://localhost:8080" + path;
             }
             if (response === 404)
             {
@@ -47,8 +50,9 @@ class LoginForm extends Component {
           })
           .catch(err => {
             console.error(err);
-          });       
-      };
+          });
+    
+    };
 
     checkAccount = function (responseMessage)
     {

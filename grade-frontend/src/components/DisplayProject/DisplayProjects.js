@@ -1,26 +1,36 @@
 import { useState, useEffect } from 'react';
 import './DisplayProjects.css'
 import img1 from '../../resources/work2.jpg'
-import NavBar from '../NavBar/NavBar';
-import { NavBtn, NavBtnLink } from '../NavBar/NavBarElem';
+import DisplayMessageComp from '../DisplayMessageComp';
 
-function DisplayProjects() {
+function DisplayProjects(props) {
   const [projects, setProjects] = useState(null);
+  const [isItStudentPage, setIsItStudentPage] = useState(false);
 
   useEffect(() => {
     getData();
 
     async function getData() {
-      const response = await fetch("http://localhost:8080/projects");
-      const data = await response.json();
-      setProjects(data) ;
+      if (Object.keys(this.props).length === 0)
+      {
+        let response = await fetch("http://localhost:8080/projects");
+        let data = await response.json();
+        setProjects(data) ;
+        setIsItStudentPage(" ALL PROJECTS' ");
+      }
+      else
+      {
+        let response = await fetch("http://localhost:8080/projects");
+        let data = await response.json();
+        setProjects(data) ;
+        setIsItStudentPage(" YOUR PROJECTS' ");
+      }
     }
   }, []);
 
   return (
     <div className='mainContainer'>
-      <NavBar></NavBar>
-      <h1>Projects in execution</h1>
+      <DisplayMessageComp page = {isItStudentPage}></DisplayMessageComp>
       {projects && (
         <div id="projects">
           {projects.map((project, index) => (
@@ -32,14 +42,6 @@ function DisplayProjects() {
 
               <label><b>Subject chosen:</b></label>
               <p className = 'projDetail'><center>{project.subject}</center></p>
-
-              <NavBtn>
-                <center>
-                <NavBtnLink id="gradeBtn" to= "/gradeProject">
-                    Grade!
-                </NavBtnLink>
-                </center>
-            </NavBtn>
             </div>
           </div>
           ))}

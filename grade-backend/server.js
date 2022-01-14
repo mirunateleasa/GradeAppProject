@@ -15,6 +15,7 @@ const sequelize = require("./sequelize");
 
 const Project = require("./models/Project");
 const Account = require ("./models/Account");
+Account.hasMany(Project);
 
 app.use(
   express.urlencoded({
@@ -50,14 +51,37 @@ app.get("/projects", async (req, res, next) => {
     }
   });
 
-app.post("/newProject", async (req, res, next) => {
-    try {
-      console.log (req.body)
-      await Project.create(req.body);
-      res.status(201).json({ message: "Project Created!" });
-    } catch (err) {
-      next(err);
+app.get("/accounts/:username/projects", async(req, res, next) =>
+{
+  try {
+    const account = await Account.findByPk(req.params.username, {
+      include: [Project],
+    });
+    if (account) {
+      res.status(200).json(account.projects);
+    } else {
+      res.status(404).json({ message: "404 - Account Not Found!" });
     }
+  } catch (err) {
+    next(err);
+  }
+})
+
+app.post("/accounts/:username/projects", async (req, res, next) => {
+  try {
+    console.log("HELLLLLLLLLLLLLLLLOOOOOOOOOOOOO")
+    const account = await Account.findByPk(req.params.username);
+    if (account) {
+      const project = new Project(req.body);
+      project.username = req.params.username;
+      await project.save();
+      res.status(201).json({ message: "Project created" });
+    } else {
+      res.status(404).json({ message: "404 - Account Not Found!" });
+    }
+  } catch (err) {
+    next(err);
+  }
   });
 
   
@@ -77,8 +101,8 @@ app.get("/accounts/:accountId/:password", async (req, res, next) => {
     if (account) {
       if (account.password == req.params.password)
       {
-        res.status(200);
-        console.log("OK");
+        res.status(200).json({message: "AICI"});
+        console.log("AICI");
       }
       else 
       {

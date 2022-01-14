@@ -33,7 +33,7 @@ class AddProject extends Component {
         console.log(project)
     
         axios
-          .post('http://localhost:8080/newProject', project)
+          .post(`http://localhost:8080/accounts/${this.props.username}/projects`, project)
           .then(() => console.log('Project Posted'))
           .catch(err => {
             console.error(err);
