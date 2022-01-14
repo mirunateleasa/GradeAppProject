@@ -30,7 +30,7 @@ class SignUpForm extends Component {
     
         axios
           .post('http://localhost:8080/newAccount', account)
-          .then(() => console.log('Project Posted'))
+          .then(() => console.log('New account created'))
           .catch(err => {
             console.error(err);
           });

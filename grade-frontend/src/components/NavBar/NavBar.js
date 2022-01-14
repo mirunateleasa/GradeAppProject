@@ -16,8 +16,8 @@ const NavBar = () => {
                     <NavLink to="/displayProjects" activeStyle>
                         All projects
                     </NavLink>
-                    <NavLink to="/incaOPagina" activeStyle>
-                        Inca o pagina
+                    <NavLink to="/uploadPartial" activeStyle>
+                        Upload Partial
                     </NavLink>
                 </NavMenu>
             </NavBarElem>

@@ -14,6 +14,7 @@ app.use(
 const sequelize = require("./sequelize");
 
 const Project = require("./models/Project");
+const Account = require ("./models/Account");
 
 app.use(
   express.urlencoded({
@@ -58,3 +59,37 @@ app.post("/newProject", async (req, res, next) => {
       next(err);
     }
   });
+
+  
+app.post("/newAccount", async (req, res, next) => {
+  try {
+    console.log (req.body)
+    await Account.create(req.body);
+    res.status(201).json({ message: "New Account created!" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get("/accounts/:accountId/:password", async (req, res, next) => {
+  try {
+    const account = await Account.findByPk(req.params.accountId);
+    if (account) {
+      if (account.password == req.params.password)
+      {
+        res.status(200);
+        console.log("OK");
+      }
+      else 
+      {
+        res.status(404);
+        console.log("NOT OK")
+      }
+    } else {
+      res.status(404);
+      console.log("NOT OK");
+    }
+  } catch (err) {
+    next(err);
+  }
+});

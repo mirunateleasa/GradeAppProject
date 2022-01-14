@@ -6,6 +6,7 @@ import SignUpForm from "./components/Login/SignUpForm";
 import AddProject from "./components/AddProject/AddProject";
 import LoginForm from './components/Login/LogInForm';
 import DisplayProjects from './components/DisplayProject/DisplayProjects'
+import UploadPartial from './components/UploadPartial/UploadPartial'
 
 function App() {
   //#region LOGIN PART (inca nu merge cu orice cont?)
@@ -51,6 +52,7 @@ function App() {
       <Route path = "/signup" element = {<SignUpForm></SignUpForm>}/>
       <Route path = '/newProject' element = {<AddProject></AddProject>}></Route>
       <Route path = '/displayProjects' element = {<DisplayProjects></DisplayProjects>}></Route>
+      <Route path = '/uploadPartial' element = {<UploadPartial></UploadPartial>}></Route>
     </Routes>
     </BrowserRouter>
   );

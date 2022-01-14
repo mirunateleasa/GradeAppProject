@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect } from "react";
 import "./SignUpForm.css";
 import axios from 'axios';
+import DisplayProjects from "../DisplayProject/DisplayProjects";
+const url = require('url');
 
 class LoginForm extends Component {
     constructor(props) {
@@ -23,18 +25,38 @@ class LoginForm extends Component {
     
         const { username, password} = this.state;
     
-        const project = {
+        const account = {
             username,
             password
         };
-    
+
+        var response;
         axios
-          .post('http://localhost:8080/newProject', project)
-          .then(() => console.log('Project Posted'))
+          .get(`http://localhost:8080/accounts/${username}/${password}`)
+          .then(function(data) {
+            response = data.status
+            if (response === 200)
+            {
+              console.log("YOU ARE HERE");
+              //go to display projects for person page
+            }
+            if (response === 404)
+            {
+              console.log("Sorry! It seems like you don't have an account");
+            }
+          })
           .catch(err => {
             console.error(err);
-          });
+          });       
       };
+
+    checkAccount = function (responseMessage)
+    {
+      if (responseMessage == 200)
+      {
+        
+      }
+    }
   render() {
     return (
       <div>
