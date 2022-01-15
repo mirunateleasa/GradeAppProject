@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import "./AddProject.css";
 import axios from 'axios';
+import NavBarComp from "../NavBar/NavBarComp";
 
 class AddProject extends Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class AddProject extends Component {
         this.state = {
           name: '',
           noPartials: '',
-          subject: ''
+          subject: '',
+          username: window.location.href.split('/')[4]
         };
       }
     
@@ -31,10 +33,15 @@ class AddProject extends Component {
             subject
         };
         console.log(project)
+        let urlElements = window.location.href.split('/');
     
         axios
-          .post(`http://localhost:8080/accounts/${this.props.username}/projects`, project)
-          .then(() => console.log('Project Posted'))
+          .post(`http://localhost:8080/accounts/${urlElements[4]}/projects`, project)
+          .then(() => {
+            let path = `/accounts/${this.state.username}/projects`;
+              console.log(path);
+              window.location.href = "http://localhost:3000" + path;
+          })
           .catch(err => {
             console.error(err);
           });
@@ -42,9 +49,10 @@ class AddProject extends Component {
   render() {
     return (
       <div id = "classContainer">
+        <NavBarComp username = {this.state.username} activeIndex = {2}></NavBarComp>
         <form className="newProjectForm">
           <div className="formInner">
-            <h3> Add your project here! </h3>
+            <h3 id="addFromTitle"> Add your project here! </h3>
             <div className="formGroups">
               <label htmlFor="name"> Your team name: </label>
               <input className="projNameIn" type="text" name="name" id="name" onChange={this.handleInputChange}></input>

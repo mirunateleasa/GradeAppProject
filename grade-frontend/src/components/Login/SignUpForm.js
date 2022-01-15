@@ -32,9 +32,9 @@ class SignUpForm extends Component {
           .post('http://localhost:8080/newAccount', account)
           .then(() => {
             console.log('New account created')
-            let path = `/projects/${username}`;
+            let path = `/accounts/${username}/projects`;
             console.log(path);
-            window.location.href = "http://localhost:8080" + path; 
+            window.location.href = "http://localhost:3000" + path; 
           })
           .catch(err => {
             console.error(err);

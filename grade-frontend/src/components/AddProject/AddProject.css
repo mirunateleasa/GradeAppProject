@@ -16,9 +16,19 @@ div #classContainer {
   padding: 20px;
   background-color: green;
   border-radius: 10px;
-  margin: 10%;
+  margin: 3%;
   width: 30%;
   box-shadow: 20px 20px 40px -6px rgba(46, 134, 46, 0.637);
+}
+
+#addFromTitle
+{
+  color: khaki;
+  font-family: "Sora", sans-serif;
+  font-style: normal;
+  font-weight: lighter;
+  font-variant: small-caps;
+  font-size: 200%;
 }
 
 form .formInner {
@@ -64,13 +74,6 @@ input:hover, input:focus
     border:1px solid khaki;
 }
 
-h3 {
-  background-color: green;
-  color: khaki;
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
 .formGroups {
   background-color: green;
   display: block;
@@ -87,4 +90,7 @@ h3 {
   margin-top: 5px;
   transition: 0.5s;
   font-family: "Sora", sans-serif;
+  font-style: normal;
+  font-weight: lighter;
+  font-variant: small-caps;
 }

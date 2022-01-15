@@ -55,10 +55,19 @@ app.get("/accounts/:username/projects", async(req, res, next) =>
 {
   try {
     const account = await Account.findByPk(req.params.username, {
-      include: [Project],
+      include: [Project]
     });
     if (account) {
-      res.status(200).json(account.projects);
+      console.log(account.projects)
+      if (account.projects)
+      {
+        res.status(200).json(account.projects);
+        console.log(projects);
+      }
+      else
+      {
+        res.status(400).json({ message: "400 - Projects Not Found!" });
+      }
     } else {
       res.status(404).json({ message: "404 - Account Not Found!" });
     }
@@ -69,12 +78,12 @@ app.get("/accounts/:username/projects", async(req, res, next) =>
 
 app.post("/accounts/:username/projects", async (req, res, next) => {
   try {
-    console.log("HELLLLLLLLLLLLLLLLOOOOOOOOOOOOO")
     const account = await Account.findByPk(req.params.username);
     if (account) {
       const project = new Project(req.body);
-      project.username = req.params.username;
+      project.accountUsername = req.params.username;
       await project.save();
+      console.log(project);
       res.status(201).json({ message: "Project created" });
     } else {
       res.status(404).json({ message: "404 - Account Not Found!" });
@@ -102,15 +111,13 @@ app.get("/accounts/:accountId/:password", async (req, res, next) => {
       if (account.password == req.params.password)
       {
         res.status(200).json({message: "AICI"});
-        console.log("AICI");
       }
       else 
       {
         res.status(404);
-        console.log("NOT OK")
       }
     } else {
-      res.status(404);
+      res.status(404).json({message: "NOT AICI"});
       console.log("NOT OK");
     }
   } catch (err) {

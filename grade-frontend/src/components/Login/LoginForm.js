@@ -3,10 +3,13 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import "./SignUpForm.css";
 import axios from 'axios';
 import DisplayProjects from "../DisplayProject/DisplayProjects";
-import { NavLink } from "react-router-dom";
+import { Toast } from 'primereact/toast';
+ 
+
 const url = require('url');
 
 class LoginForm extends Component {
+  
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,31 +42,22 @@ class LoginForm extends Component {
             response = data.status
             if (response === 200)
             {
-              let path = `/projects/${username}`;
+              let path = `/accounts/${username}/projects`;
               console.log(path);
-              window.location.href = "http://localhost:8080" + path;
-            }
-            if (response === 404)
-            {
-              console.log("Sorry! It seems like you don't have an account");
+              window.location.href = "http://localhost:3000" + path;
             }
           })
           .catch(err => {
+            this.toast.show({severity: 'error', summary: 'Wrong credentials', detail: 'Please re-check the credentials and try logging in again!'});
             console.error(err);
           });
     
     };
-
-    checkAccount = function (responseMessage)
-    {
-      if (responseMessage == 200)
-      {
-        
-      }
-    }
+    
   render() {
     return (
       <div>
+        <Toast ref={(el) => this.toast = el} />
         <form className="newAccount">
           <div className="signInFormInner">
             <h3 className="signInTitle"> Let's log you in! </h3>
