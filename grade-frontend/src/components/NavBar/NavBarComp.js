@@ -15,8 +15,9 @@ class NavBarComp extends Component{
     }
     this.items =  [
       {label: 'Home', icon: 'pi pi-fw pi-home', command: (event) => {window.location.href = "/";}},
-      {label: 'Display Projects', icon: 'pi pi-fw pi-table', command: (event) => {window.location.href = `/accounts/${this.props.username}/projects`;}},
-      {label: 'Add Project', icon: 'pi pi-fw pi-plus-circle', command: (event) => {window.location.href = `/accounts/${this.props.username}/newProject`;}}
+      {label: 'My Projects', icon: 'pi pi-fw pi-table', command: (event) => {window.location.href = `/accounts/${this.props.username}/projects`;}},
+      {label: 'Add Project', icon: 'pi pi-fw pi-plus-circle', command: (event) => {window.location.href = `/accounts/${this.props.username}/newProject`;}},
+      {label: 'Grade Projects', icon: 'pi pi-fw pi-star', command: (event) => {window.location.href = `/gradeProjects`;}}
     ];
   }
 

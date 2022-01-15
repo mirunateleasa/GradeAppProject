@@ -92,7 +92,6 @@ app.post("/accounts/:username/projects", async (req, res, next) => {
     next(err);
   }
   });
-
   
 app.post("/newAccount", async (req, res, next) => {
   try {
