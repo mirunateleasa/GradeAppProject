@@ -15,7 +15,9 @@ const sequelize = require("./sequelize");
 
 const Project = require("./models/Project");
 const Account = require ("./models/Account");
+const Grade = require("./models/Grade");
 Account.hasMany(Project);
+Project.hasMany(Grade);
 
 app.use(
   express.urlencoded({
@@ -46,6 +48,43 @@ app.get("/projects", async (req, res, next) => {
     try {
       const projects = await Project.findAll();
       res.status(200).json(projects);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  app.get("/projects/:projectId", async(req, res, next) => 
+  {
+    try {
+      console.log("wtf")
+      const project = await Project.findByPk(req.params.projectId);
+      if (project)
+      {
+        res.status(200).json(project);
+      }
+      else
+      {
+        res.status(404).json(`404 - No Project Found for id ${req.params.projectId}`);
+      }
+    }
+    catch (err)
+    {
+      next(err)
+    }
+  })
+
+  app.post("/projects/:projectId/gradesprojects", async (req, res, next) => {
+    try {
+      const project = await Project.findByPk(req.params.projectId);
+      if (project) {
+        console.log(req.body);
+        const grade = new Grade(req.body);
+        grade.projectId = project.id;
+        await grade.save();
+        res.status(201).json({ message: "Grade added" });
+      } else {
+        res.status(404).json({ message: "404 - Projecct Not Found!" });
+      }
     } catch (err) {
       next(err);
     }

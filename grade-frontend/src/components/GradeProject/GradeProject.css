@@ -1,0 +1,27 @@
+.mainContainerToGrade
+{
+    background-color: rgb(135, 199, 135);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#cardContainer
+{
+    height: fit-content;
+    width: 30vw;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    margin-top: 2vh;
+}
+
+#imgCard
+{
+    width: 25vw;
+    height: 35vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+

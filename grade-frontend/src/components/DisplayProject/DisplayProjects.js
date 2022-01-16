@@ -2,45 +2,11 @@ import React, { useState, useEffect, useRef, Component } from "react";
 import { Button } from 'primereact/button';
 import {EventEmitter} from 'fbemitter'
 import './DisplayProjects.css'
+import ProjectsStore from '../stores/ProjectsStore'
 import img1 from '../../resources/work2.jpg'
 import img2 from '../../resources/emoji.png'
 import DisplayMessageComp from '../DisplayMessageComp';
 import NavBarComp from '../NavBar/NavBarComp';
-
-class ProjectsStore 
-{
-  constructor(props){
-    this.projects = []
-    this.emitter = new EventEmitter()
-    this.user = props
-  }
-
-  async getAllForUser(){
-      try{
-          let response = await fetch(`http://localhost:8080/accounts/${this.user}/projects`);
-          let data = await await response.json();
-          this.projects = data;
-          this.emitter.emit('GET_PROJ_SUCCESS')
-      }
-      catch(err){
-          console.warn(err)
-          this.emitter.emit('GET_PROJ_ERROR')
-      }
-  }
-  async getAllToGrade(){
-    try{
-        let response = await fetch(`http://localhost:8080/projects`);
-        let data = await await response.json();
-        console.log(data);
-        this.projects = data;
-        this.emitter.emit('GET_PROJ_SUCCESS')
-    }
-    catch(err){
-        console.warn(err)
-        this.emitter.emit('GET_PROJ_ERROR')
-    }
-}
-}
 
 class DisplayProjects extends Component {
   constructor (props)
@@ -56,13 +22,13 @@ class DisplayProjects extends Component {
 
     this.goToAddPartials = function(clickedCard) 
     {
-      console.log("CLICKED: ", clickedCard)
       let path = `/accounts/${this.state.username}/projects/${clickedCard}`;
       window.location.href = "http://localhost:3000" + path;
     }
 
     this.goToGrade = function (clickedCard) {
-
+      let path = `/projects/${clickedCard}/grades`;
+      window.location.href = "http://localhost:3000" + path;
     }
   }
 
@@ -86,6 +52,11 @@ class DisplayProjects extends Component {
     else 
     {
       this.store.getAllToGrade();
+      this.store.emitter.addListener('GET_PROJ_SUCCESS', () => {
+        this.setState({
+            projects : this.store.projects
+        })
+      })
     }
   }
   render ()
@@ -132,7 +103,7 @@ class DisplayProjects extends Component {
     {
       return (
         <div className='mainContainer'>
-          <NavBarComp activeIndex = {3} username = {this.state.username}></NavBarComp>
+          <NavBarComp activeIndex = {3} username = {"guest"}></NavBarComp>
           <DisplayMessageComp page = {this.state.isItStudentPage}></DisplayMessageComp>
               {this.state.projects && (
                 <div id="projects">
