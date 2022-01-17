@@ -49,7 +49,7 @@ class AddProject extends Component {
   render() {
     return (
       <div id = "classContainer">
-        <NavBarComp username = {this.state.username} activeIndex = {2}></NavBarComp>
+        <NavBarComp username = {this.state.username} activeIndex = {1}></NavBarComp>
         <form className="newProjectForm">
           <div className="formInner">
             <h3 id="addFromTitle"> Add your project here! </h3>

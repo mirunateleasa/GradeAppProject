@@ -6,6 +6,7 @@ import imgProj from '../../resources/work3.jpg'
 import './GradeProject.css'
 import NavBarComp from "../NavBar/NavBarComp";
 import { Rating } from 'primereact/rating';
+import { Toast } from 'primereact/toast';
 
 
 class GradeProject extends Component {
@@ -13,7 +14,8 @@ class GradeProject extends Component {
   {
     super(props);
     this.state = {
-      projectId: window.location.href.split('/')[4],
+      projectId: window.location.href.split('/')[6],
+      username: window.location.href.split('/')[4], 
       grade: {
           value: 0
       },
@@ -25,6 +27,7 @@ class GradeProject extends Component {
     {
         this.store.updateGradesById(this.state.projectId, this.state.grade);
         this.setState({grade: {value: 0}});
+        this.toast.show({severity: 'success', summary: 'Rating registered!', detail: 'Thanks for rating!'});
     }
   }
 
@@ -42,21 +45,22 @@ class GradeProject extends Component {
         const header = <img id = "imgCard" alt="Card" src={imgProj}/>;
         return (
             <div className="mainContainerToGrade">
-                <div className="p-mr-2"> <NavBarComp activeIndex = {3} username = {'guest'}></NavBarComp></div>
+                <Toast ref={(el) => this.toast = el} />
+                <div className="p-mr-2"> <NavBarComp activeIndex = {2} username = {this.state.username}></NavBarComp></div>
                 <div id="cardContainer">
-                    <Card header={header}>
+                    <Card id = "cardBody" header={header}>
                         <label><b>Team name: </b></label>
                         <p className='projDetail'><center>{this.state.project.name}</center></p> 
                         <label><b>Subject chosen:</b></label>
                         <p className = 'projDetail'><center>{this.state.project.subject}</center></p>
-                        <center><Rating cancel={false} value={this.state.grade.value} onChange={(e) => 
+                        <center><Rating id="ratingBar" cancel={false} value={this.state.grade.value} onChange={(e) => 
                         {
                             this.setState({grade:
                                 {
                                     value: e.value
                                 }});
                         }} stars={10} /></center>
-                        <Button label="Grade!" onClick={this.handleSubmit}></Button>
+                        <Button id="btnGrade" label="Grade!" onClick={this.handleSubmit}></Button>
                     </Card>
                 </div>
             </div>

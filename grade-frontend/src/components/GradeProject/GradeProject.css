@@ -22,6 +22,33 @@
     height: 35vh;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    border-radius: 30px;
+    margin-top: 2px;
 }
 
+#cardBody
+{
+    background-color: rgb(140, 226, 140);
+    border-radius: 30px;
+    margin-top: 0;
+    box-shadow: 8px 8px rgba(0, 128, 0, 0.144);
+    height: 85vh;
+}
 
+#btnGrade
+{
+    border-radius: 100px;
+    border: 1px solid green;
+    background-color: rgb(135, 199, 135);
+    color: green;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 30px;
+}
+
+.p-rating-icon.pi.pi-star-fill::before
+{
+    color: rgb(135, 199, 135);
+}

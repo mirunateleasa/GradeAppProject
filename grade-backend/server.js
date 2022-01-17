@@ -44,7 +44,7 @@ app.get("/create", async (req, res, next) => {
   }
 });
 
-app.get("/projects", async (req, res, next) => {
+app.get("/projects", async (req, res, next) => {  // GET all the projects
     try {
       const projects = await Project.findAll();
       res.status(200).json(projects);
@@ -53,7 +53,7 @@ app.get("/projects", async (req, res, next) => {
     }
   });
 
-  app.get("/projects/:projectId", async(req, res, next) => 
+  app.get("/projects/:projectId", async(req, res, next) => //GET a project by id
   {
     try {
       console.log("wtf")
@@ -73,7 +73,7 @@ app.get("/projects", async (req, res, next) => {
     }
   })
 
-  app.post("/projects/:projectId/gradesprojects", async (req, res, next) => {
+  app.post("accounts/:username/projects/:projectId/gradesprojects", async (req, res, next) => { //POST a grade in a project by id (Grade Project)
     try {
       const project = await Project.findByPk(req.params.projectId);
       if (project) {
@@ -90,7 +90,7 @@ app.get("/projects", async (req, res, next) => {
     }
   });
 
-app.get("/accounts/:username/projects", async(req, res, next) =>
+app.get("/accounts/:username/projects", async(req, res, next) =>  //GET the projects corresponding to a username (My Projects)
 {
   try {
     const account = await Account.findByPk(req.params.username, {
@@ -115,7 +115,32 @@ app.get("/accounts/:username/projects", async(req, res, next) =>
   }
 })
 
-app.post("/accounts/:username/projects", async (req, res, next) => {
+app.get("/accounts/:username/gradeProjects", async(req, res, next) =>  //GET the projects that are NOT corresponding to a username (Display Projects)
+{
+  try {
+    const projects = await Project.findAll();
+    const newProjects =[];
+    console.log("HERE");
+    projects.forEach(element => {
+      if (element.accountUsername !== req.params.username)
+      {
+        newProjects.push(element);
+      }
+    });
+    if (newProjects.length == 0)
+    {
+      res.status(404).json("404 - NO PROJECTS FOUND");
+    }
+    else
+    {
+      res.status(200).json(newProjects);
+    }
+  } catch (err) {
+    next(err);
+  }
+})
+
+app.post("/accounts/:username/projects", async (req, res, next) => {  //POST a new project for a new username (Add Project)
   try {
     const account = await Account.findByPk(req.params.username);
     if (account) {
@@ -132,7 +157,7 @@ app.post("/accounts/:username/projects", async (req, res, next) => {
   }
   });
   
-app.post("/newAccount", async (req, res, next) => {
+app.post("/newAccount", async (req, res, next) => { //POST new account (sign up)
   try {
     console.log (req.body)
     await Account.create(req.body);
@@ -142,7 +167,7 @@ app.post("/newAccount", async (req, res, next) => {
   }
 });
 
-app.get("/accounts/:accountId/:password", async (req, res, next) => {
+app.get("/accounts/:accountId/:password", async (req, res, next) => { //GET the account by the username and password (log in)
   try {
     const account = await Account.findByPk(req.params.accountId);
     if (account) {

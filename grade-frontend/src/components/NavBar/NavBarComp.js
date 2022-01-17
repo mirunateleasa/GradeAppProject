@@ -10,14 +10,15 @@ class NavBarComp extends Component{
   constructor(props) {
     super(props);
     this.state = {
-        activeIndex: 0,
-        username: ''
+        activeIndex: this.props.activeIndex,
+        username: this.props.username,
+        hasProjects: this.props.hasProjects
     }
     this.items =  [
       {label: 'Home', icon: 'pi pi-fw pi-home', command: (event) => {window.location.href = "/";}},
-      {label: 'My Projects', icon: 'pi pi-fw pi-table', command: (event) => {window.location.href = `/accounts/${this.props.username}/projects`;}},
       {label: 'Add Project', icon: 'pi pi-fw pi-plus-circle', command: (event) => {window.location.href = `/accounts/${this.props.username}/newProject`;}},
-      {label: 'Grade Projects', icon: 'pi pi-fw pi-star', command: (event) => {window.location.href = `/gradeProjects`;}}
+      {label: 'Grade Projects', icon: 'pi pi-fw pi-star', command: (event) => {window.location.href = `/accounts/${this.props.username}/gradeProjects`;}},
+      {label: 'My Projects', icon: 'pi pi-fw pi-table', command: (event) => {window.location.href = `/accounts/${this.props.username}/projects`;}}
     ];
   }
 
@@ -25,6 +26,7 @@ class NavBarComp extends Component{
   {
     this.setState({activeIndex: this.props.activeIndex});
     this.setState({username: this.props.username});
+    this.setState({hasProjects: this.props.hasProjects});
   }
 
   render() {

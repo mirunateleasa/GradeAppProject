@@ -20,10 +20,10 @@ function App() {
       <Route path = "/signup" element = {<SignUpForm></SignUpForm>}/>
       <Route path = "/navpage" element = {<NavPage />}/>
       <Route path = '/accounts/:username/newProject' element = {<AddProject></AddProject>}></Route>
-      <Route path = '/gradeProjects' element = {<DisplayProjects></DisplayProjects>}></Route>
-      <Route path = '/projects/:projectId/grades' element = {<GradeProject></GradeProject>}></Route>
+      <Route path = '/accounts/:username/gradeProjects' element = {<DisplayProjects></DisplayProjects>}></Route>
+      <Route path = '/accounts/:username/projects/:projectId/grades' element = {<GradeProject></GradeProject>}></Route>
       <Route path = '/uploadPartial' element = {<UploadPartial></UploadPartial>}></Route>
-      <Route path = {`/accounts/:username/projects`} element = {<DisplayProjects></DisplayProjects>}></Route>
+      <Route path = '/accounts/:username/projects' element = {<DisplayProjects></DisplayProjects>}></Route>
     </Routes>
     </BrowserRouter>
   );

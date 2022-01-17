@@ -15,7 +15,6 @@ class DisplayProjects extends Component {
     this.state = {
       username: window.location.href.split('/')[4],
       projects: [],
-      isItStudentPage: " ALL PROJECTS' ",
       hasProjects: false
     }
     this.store = new ProjectsStore(this.state.username);
@@ -27,7 +26,7 @@ class DisplayProjects extends Component {
     }
 
     this.goToGrade = function (clickedCard) {
-      let path = `/projects/${clickedCard}/grades`;
+      let path = `/accounts/${this.state.username}/projects/${clickedCard}/grades`;
       window.location.href = "http://localhost:3000" + path;
     }
   }
@@ -35,19 +34,38 @@ class DisplayProjects extends Component {
   componentDidMount(){
     if (this.state.username)
     {
-      this.store.getAllForUser();
-      this.store.emitter.addListener('GET_PROJ_SUCCESS', () => {
-        this.setState({
-            projects : this.store.projects,
-            hasProjects: true
-        })
-        if (this.state.projects.length !== 0)
-        {
-          this.setState ({
-            isItStudentPage: " YOUR PROJECTS' " 
+      if (window.location.href.split('/')[5] === "projects")
+      {
+        this.store.getAllForUser();
+        this.store.emitter.addListener('GET_PROJ_SUCCESS', () => {
+          this.setState({
+              projects : this.store.projects,
+              hasProjects: true
           })
-        }
-      })
+          if (this.state.projects.length !== 0)
+          {
+            this.setState ({
+              hasProjects: true
+            })
+          }
+          else 
+          {
+            this.setState ({
+              hasProjects: false
+            })
+          }
+        })
+      }
+      else if (window.location.href.split('/')[5] === "gradeProjects")
+      {
+        this.store.getAllToGrade();
+        this.store.emitter.addListener('GET_PROJ_SUCCESS', () => {
+          this.setState({
+              projects : this.store.projects,
+              hasProjects: true
+          })
+        })
+      }
     }
     else 
     {
@@ -61,67 +79,72 @@ class DisplayProjects extends Component {
   }
   render ()
   {
-    if (this.state.username)
+    if (window.location.href.split('/')[5] === "projects")
     {
-      if (this.state.hasProjects) {
-        return (
-          <div className='mainContainer'>
-            <NavBarComp activeIndex = {1} username = {this.state.username}></NavBarComp>
-            <DisplayMessageComp page = {this.state.isItStudentPage}></DisplayMessageComp>
-                {this.state.projects && (
-                  <div id="projects">
-                    {this.state.projects.map((project, index) => (
-                      <div id="card" onClick={() => this.goToAddPartials(project.id)}>
-                        <div id="container">
-                          <center><img id='cardImage' src = {img1}></img></center><br></br>
-                          <label><b>Team name: </b></label>
-                          <p className='projDetail'><center>{project.name}</center></p> 
+      if (this.state.hasProjects) { //e student are proiecte
+          return (
+            <div className='mainContainer'>
+              <NavBarComp activeIndex = {3} username = {this.state.username} hasProjects = {true}></NavBarComp>
+              <DisplayMessageComp page = {"Your projects'"}></DisplayMessageComp>
+                  {this.state.projects && (
+                    <div id="projects">
+                      {this.state.projects.map((project, index) => (
+                        <div id="card" onClick={() => this.goToAddPartials(project.id)}>
+                          <div id="container">
+                            <center><img id='cardImage' src = {img1}></img></center><br></br>
+                            <label><b>Team name: </b></label>
+                            <p className='projDetail'><center>{project.name}</center></p> 
 
-                          <label><b>Subject chosen:</b></label>
-                          <p className = 'projDetail'><center>{project.subject}</center></p>
+                            <label><b>Subject chosen:</b></label>
+                            <p className = 'projDetail'><center>{project.subject}</center></p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>)}
-          </div>
-        )}
-                
-      else {
-        return (
-        <div className='mainContainer'>
-          <NavBarComp activeIndex = {1} username = {this.state.username}></NavBarComp>
-          <DisplayMessageComp page = {this.state.isItStudentPage}></DisplayMessageComp>
-          <div id='messageContainer'>
-            <img id='emoji' src={img2}></img>
-            <h4 id='noProjectMessage'>Hmmm, it looks like you didn't registered any projects... <br></br><br></br>Go to the Add Project page to register your first project!</h4>
-          </div>
+                      ))}
+                    </div>)}
+            </div>
+          )}
+          // else //nu e student sau nu are proiecte
+          // {
+          //  
+          //   )}
+        
+        else {
+          return (
+          <div className='mainContainer'>
+            <NavBarComp activeIndex = {3} username = {this.state.username} hasProjects = {false}></NavBarComp>
+            <DisplayMessageComp page = {"Your projects'"}></DisplayMessageComp>
+            <div id='messageContainer'>
+              <img id='emoji' src={img2}></img>
+              <h4 id='noProjectMessage'>Hmmm, it looks like you didn't registered any projects... <br></br><br></br>Go to the Add Project page to register your first project!</h4>
+            </div>
 
-        </div>
-        )}
-    }
-    else 
+          </div>
+          )}
+      }
+    else if (window.location.href.split('/')[5] === "gradeProjects") 
     {
       return (
-        <div className='mainContainer'>
-          <NavBarComp activeIndex = {3} username = {"guest"}></NavBarComp>
-          <DisplayMessageComp page = {this.state.isItStudentPage}></DisplayMessageComp>
-              {this.state.projects && (
-                <div id="projects">
-                  {this.state.projects.map((project, index) => (
-                    <div id="card" onClick={() => this.goToGrade(project.id)}>
-                      <div id="container">
-                        <center><img id='cardImage' src = {img1}></img></center><br></br>
-                        <label><b>Team name: </b></label>
-                        <p className='projDetail'><center>{project.name}</center></p> 
-
-                        <label><b>Subject chosen:</b></label>
-                        <p className = 'projDetail'><center>{project.subject}</center></p>
-                      </div>
-                    </div>
-                  ))}
-                </div>)}
-        </div>
-      )}
+            <div className='mainContainer'>
+              <NavBarComp activeIndex = {2} username = {this.state.username} hasProjects = {false}></NavBarComp>
+              <DisplayMessageComp page = {"Registered projects'"}></DisplayMessageComp>
+                  {this.state.projects && (
+                    <div id="projects">
+                      {this.state.projects.map((project, index) => (
+                        <div id="card" onClick={() => this.goToGrade(project.id)}>
+                          <div id="container">
+                            <center><img id='cardImage' src = {img1}></img></center><br></br>
+                            <label><b>Team name: </b></label>
+                            <p className='projDetail'><center>{project.name}</center></p> 
+    
+                            <label><b>Subject chosen:</b></label>
+                            <p className = 'projDetail'><center>{project.subject}</center></p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>)}
+            </div>
+      )
+    }
   }
 }
 export default DisplayProjects;
