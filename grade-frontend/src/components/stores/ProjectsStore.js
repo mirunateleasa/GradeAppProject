@@ -10,6 +10,7 @@ class ProjectsStore
     this.project = []
     this.emitter = new EventEmitter()
     this.user = props
+    this.currentGrade = 0
   }
 
   async getAllForUser(){
@@ -57,6 +58,7 @@ class ProjectsStore
     try{
         let response = await axios.post(`http://localhost:8080/projects/${id}/gradesprojects`, grade);
         let data = await response.json();
+        this.computeCurrentGrade(id);
         console.log("AFTER UPDATE: " ,data);
         //this.project = data;
         this.emitter.emit('GET_PROJ_SUCCESS')
@@ -66,6 +68,37 @@ class ProjectsStore
         console.warn(err)
         this.emitter.emit('GET_PROJ_ERROR')
       }
+  }
+
+  async computeCurrentGrade (id)
+  {
+    try{
+      let response = await fetch(`http://localhost:8080/projects/${id}/grades`);
+      let data = await await response.json();
+      let grades = data;
+      const { length } = grades;
+      const { sum, min, max } = grades.reduce((acc, val) => {
+        let sum = acc;
+        sum += val;
+        if(val > max){
+           max = val;
+        };
+        if(val < min){
+           min = val;
+        };
+        return { min, max, sum };
+       }, {
+        min: Number.MAX_VALUE,
+        max: Number.MIN_VALUE,
+        sum: 0
+     });
+     this.currentGrade = (sum - min - max) / (length - 2);
+     this.emitter.emit('GET_PROJ_SUCCESS')
+  }
+  catch(err){
+      console.warn(err)
+      this.emitter.emit('GET_PROJ_ERROR')
+  }
   }
 }
 

@@ -21,7 +21,7 @@ class DisplayProjects extends Component {
 
     this.goToAddPartials = function(clickedCard) 
     {
-      let path = `/accounts/${this.state.username}/projects/${clickedCard}`;
+      let path = `/accounts/${this.state.username}/projects/${clickedCard}/uploadPartial`;
       window.location.href = "http://localhost:3000" + path;
     }
 
@@ -79,9 +79,9 @@ class DisplayProjects extends Component {
   }
   render ()
   {
-    if (window.location.href.split('/')[5] === "projects")
+    if (window.location.href.split('/')[5] === "projects")  //MY PROJECTS' page
     {
-      if (this.state.hasProjects) { //e student are proiecte
+      if (this.state.hasProjects) { //user has projects and it's on MY PROJECTS page
           return (
             <div className='mainContainer'>
               <NavBarComp activeIndex = {3} username = {this.state.username} hasProjects = {true}></NavBarComp>
@@ -97,18 +97,17 @@ class DisplayProjects extends Component {
 
                             <label><b>Subject chosen:</b></label>
                             <p className = 'projDetail'><center>{project.subject}</center></p>
+
+                            <label><b>Current Grade:</b></label>
+                            <p className = 'projDetail'><center>{project.currentGrade}</center></p>
                           </div>
                         </div>
                       ))}
                     </div>)}
             </div>
           )}
-          // else //nu e student sau nu are proiecte
-          // {
-          //  
-          //   )}
         
-        else {
+        else {  //user doesn't have projects and he's on MY PROJECTS page
           return (
           <div className='mainContainer'>
             <NavBarComp activeIndex = {3} username = {this.state.username} hasProjects = {false}></NavBarComp>
@@ -121,7 +120,7 @@ class DisplayProjects extends Component {
           </div>
           )}
       }
-    else if (window.location.href.split('/')[5] === "gradeProjects") 
+    else if (window.location.href.split('/')[5] === "gradeProjects") //user is on GRADE PROJECTS page
     {
       return (
             <div className='mainContainer'>

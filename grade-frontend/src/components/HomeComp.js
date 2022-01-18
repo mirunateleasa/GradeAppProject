@@ -27,7 +27,8 @@ function HomeComp ()
             <Button label="Sign UP" icon="pi pi-user-edit" iconPos="right" className="p-button-raised p-button-rounded p-button-success"
                 onClick={goToSignUp}/>
 
-            <h3 className="appTitle"> APLICATIE FARA NUME </h3>
+            <h3 id="appTitle"> PROJECTIADA </h3>
+            <h2 id="appSubtitle"> The Olympic Games for your Projects </h2>
             </center>
            
             

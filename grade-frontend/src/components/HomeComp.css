@@ -12,8 +12,8 @@ div .homeContainer{
     z-index: 1;
     width: 100vw;
     height: 100vh;
-    opacity: 0.9;
-    filter: brightness(0.4);
+    opacity: 0.8;
+    filter: brightness(0.2);
 }
 
 .p-button
@@ -26,14 +26,27 @@ div .homeContainer{
     background-color: rgb(135, 199, 135);
 }
 
-.appTitle
+#appTitle
 {
     z-index: 10;
     opacity: 1;
     font-size: 50px;
     background: none;
     position: relative;
-    margin-top: 65vh;
+    margin-top: 60vh;
+    margin-bottom: 0px;
+    justify-content: center;
+    color: rgb(135, 199, 135);
+}
+
+#appSubtitle
+{
+    z-index: 10;
+    opacity: 1;
+    font-size: 30px;
+    background: none;
+    position: relative;
+    margin-top: 0.5vh;
     justify-content: center;
     color: rgb(135, 199, 135);
 }

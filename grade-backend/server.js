@@ -4,6 +4,9 @@ const app = express();
 const port = 8080;
 const cors = require("cors")
 
+const fileupload = require("express-fileupload");
+app.use(fileupload());
+
 app.use(
     cors({
         origin: 'http://localhost:3000',
@@ -16,8 +19,10 @@ const sequelize = require("./sequelize");
 const Project = require("./models/Project");
 const Account = require ("./models/Account");
 const Grade = require("./models/Grade");
+const Partial = require("./models/Partial");
 Account.hasMany(Project);
 Project.hasMany(Grade);
+Project.hasMany(Partial);
 
 app.use(
   express.urlencoded({
@@ -56,7 +61,6 @@ app.get("/projects", async (req, res, next) => {  // GET all the projects
   app.get("/projects/:projectId", async(req, res, next) => //GET a project by id
   {
     try {
-      console.log("wtf")
       const project = await Project.findByPk(req.params.projectId);
       if (project)
       {
@@ -73,14 +77,63 @@ app.get("/projects", async (req, res, next) => {  // GET all the projects
     }
   })
 
-  app.post("accounts/:username/projects/:projectId/gradesprojects", async (req, res, next) => { //POST a grade in a project by id (Grade Project)
+  app.get("/projects/:projectId/grades", async(req, res, next) =>  //GET the grades corresponding to a project
+{
+  try {
+    const project = await Project.findByPk(req.params.projectId, {
+      include: [Grade]
+    });
+    if (project) {
+      console.log(project.grades)
+      if (project.grades)
+      {
+        res.status(200).json(project.grades);
+        console.log(grades);
+      }
+      else
+      {
+        res.status(400).json({ message: "400 - Grades Not Found!" });
+      }
+    } else {
+      res.status(404).json({ message: "404 - Project Not Found!" });
+    }
+  } catch (err) {
+    next(err);
+  }
+})
+
+function recalculateGrade (project, grades)
+{
+  let thisProjGrades = [];
+  let min = 10; let max = 0; let sum = 0;
+  if (grades.length == 2)
+  {
+    return (grades[0] + grades[2])/2;
+  }
+  grades.forEach(grade => {
+  if (grade.projectId === project.id)
+  {
+    thisProjGrades.push(grade.value);
+    if (grade.value < min)
+      min = grade.value;
+    if (grade.value > max)
+      max = grade.value;
+    sum += grade.value;
+  }
+});
+  return((sum - min - max) / (thisProjGrades.length - 2));
+}
+
+  app.post("/projects/:projectId/gradesprojects", async (req, res, next) => { //POST a grade in a project by id (Grade Project)
     try {
       const project = await Project.findByPk(req.params.projectId);
       if (project) {
-        console.log(req.body);
         const grade = new Grade(req.body);
         grade.projectId = project.id;
         await grade.save();
+        const grades = await Grade.findAll();
+        project.currentGrade = recalculateGrade(project, grades);
+        await project.save();
         res.status(201).json({ message: "Grade added" });
       } else {
         res.status(404).json({ message: "404 - Projecct Not Found!" });
@@ -97,11 +150,9 @@ app.get("/accounts/:username/projects", async(req, res, next) =>  //GET the proj
       include: [Project]
     });
     if (account) {
-      console.log(account.projects)
       if (account.projects)
       {
         res.status(200).json(account.projects);
-        console.log(projects);
       }
       else
       {
@@ -120,7 +171,6 @@ app.get("/accounts/:username/gradeProjects", async(req, res, next) =>  //GET the
   try {
     const projects = await Project.findAll();
     const newProjects =[];
-    console.log("HERE");
     projects.forEach(element => {
       if (element.accountUsername !== req.params.username)
       {
@@ -186,4 +236,22 @@ app.get("/accounts/:accountId/:password", async (req, res, next) => { //GET the 
   } catch (err) {
     next(err);
   }
+});
+
+app.post('/accounts/:username/projects/:projectId/uploadPartial', async (req, res, next) => { //upload a partial to a project?
+  console.log("SAL");
+  if (req.files === null) {
+    return res.status(400).json({ msg: 'No file uploaded' });
+  }
+
+  const file = req.files.file;
+
+  file.mv(`${__dirname}/client/public/uploads/${file.name}`, err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+
+    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+  });
 });

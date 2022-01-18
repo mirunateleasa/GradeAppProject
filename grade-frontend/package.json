@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
     "fbemitter": "^3.0.0",
+    "gapi-script": "^1.2.0",
     "nodemon": "^2.0.15",
     "primeicons": "^5.0.0",
     "primereact": "^7.1.0",

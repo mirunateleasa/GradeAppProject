@@ -21,7 +21,7 @@ class GradeProject extends Component {
       },
       project: []
     }
-    this.store = new ProjectsStore('guest');
+    this.store = new ProjectsStore('guest');    //username doesn't matter when grading 
 
     this.handleSubmit = () =>
     {

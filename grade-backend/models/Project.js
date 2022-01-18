@@ -18,6 +18,11 @@ const Project = sequelize.define('project', {
     noPartials: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    currentGrade:{
+        type: DataTypes.FLOAT,
+        allowNull:true,
+        defaultValue: 0
     }
 });
 
